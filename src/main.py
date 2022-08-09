@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 from Adafruit_BBIO import GPIO  # pylint: disable=no-name-in-module
 
-DOOR_SWITCH_PIN = "P8_14"
 FRONT_LIMIT_SWITCH_PIN = "P8_12"
 REAR_LIMIT_SWITCH_PIN = "P8_10"
+DOOR_SWITCH_PIN = "P8_8"
 
 GPIO.setup(
     FRONT_LIMIT_SWITCH_PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP
