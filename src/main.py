@@ -17,6 +17,7 @@ GPIO.setup(MOTOR_IN2_PIN, GPIO.OUT, pull_up_down=GPIO.PUD_DOWN)
 
 
 def main() -> None:
+    motorStop()
     while True:
         if GPIO.input(FRONT_LIMIT_SWITCH_PIN):
             print("Front limit switch released")
