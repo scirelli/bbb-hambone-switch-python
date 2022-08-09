@@ -16,5 +16,6 @@ if __name__ == "__main__":
     try:
         main()
     except BaseException:
+        print("Handing kb interrupt")
         GPIO.cleanup()
         raise
