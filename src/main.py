@@ -32,9 +32,9 @@ def main() -> None:
             motorForward()
 
         if GPIO.input(DOOR_SWITCH_PIN):
-            print("Door switch released")
-        else:
             print("Door switch pressed")
+        else:
+            print("Door switch released")
 
 
 def motorForward() -> None:
