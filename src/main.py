@@ -22,13 +22,13 @@ def main() -> None:
             print("Front limit switch released")
         else:
             print("Front limit switch pressed")
-            driveBackward()
+            motorBackward()
 
         if GPIO.input(REAR_LIMIT_SWITCH_PIN):
             print("Rear limit switch released")
         else:
             print("Rear limit switch pressed")
-            driveForward()
+            motorForward()
 
         if GPIO.input(DOOR_SWITCH_PIN):
             print("Door switch released")
@@ -36,14 +36,19 @@ def main() -> None:
             print("Door switch pressed")
 
 
-def driveForward() -> None:
+def motorForward() -> None:
     GPIO.output(MOTOR_IN1_PIN, GPIO.LOW)
     GPIO.output(MOTOR_IN2_PIN, GPIO.HIGH)
 
 
-def driveBackward() -> None:
+def motorBackward() -> None:
     GPIO.output(MOTOR_IN2_PIN, GPIO.LOW)
     GPIO.output(MOTOR_IN1_PIN, GPIO.HIGH)
+
+
+def motorStop() -> None:
+    GPIO.output(MOTOR_IN2_PIN, GPIO.LOW)
+    GPIO.output(MOTOR_IN1_PIN, GPIO.LOW)
 
 
 if __name__ == "__main__":
@@ -51,5 +56,6 @@ if __name__ == "__main__":
         main()
     except BaseException:
         print("Handing kb interrupt")
+        motorStop()
         GPIO.cleanup()
         raise
