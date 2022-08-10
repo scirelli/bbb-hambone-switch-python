@@ -22,7 +22,7 @@ GPIO.setup(MOTOR_IN2_PIN, GPIO.OUT, pull_up_down=GPIO.PUD_DOWN)
 
 def main(times: list[int]) -> None:  # pylint: disable=redefined-outer-name
     motorStop()
-    while True:
+    for _ in range(100):
         if GPIO.input(FRONT_LIMIT_SWITCH_PIN):
             print("Front limit switch released")
         else:
@@ -64,7 +64,8 @@ if __name__ == "__main__":
         main(times)
     except BaseException:
         print("Handing kb interrupt")
+        raise
+    finally:
         motorStop()
         GPIO.cleanup()
         dump(times, stdout, indent="\t")
-        raise
