@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 from json import dump
-from sys import stdout
+from sys import stderr, stdout
 from time import perf_counter_ns
 
 from Adafruit_BBIO import GPIO  # pylint: disable=no-name-in-module
@@ -20,27 +20,31 @@ GPIO.setup(MOTOR_IN1_PIN, GPIO.OUT, pull_up_down=GPIO.PUD_DOWN)
 GPIO.setup(MOTOR_IN2_PIN, GPIO.OUT, pull_up_down=GPIO.PUD_DOWN)
 
 
+def eprint(*args, **kwargs) -> None:  # type: ignore
+    print(*args, file=stderr, **kwargs)
+
+
 def main(times: list[int]) -> None:  # pylint: disable=redefined-outer-name
     motorStop()
     for _ in range(100):
         if GPIO.input(FRONT_LIMIT_SWITCH_PIN):
-            print("Front limit switch released")
+            eprint("Front limit switch released")
         else:
-            print("Front limit switch pressed")
+            eprint("Front limit switch pressed")
             motorBackward()
             times.append(perf_counter_ns())
 
         if GPIO.input(REAR_LIMIT_SWITCH_PIN):
-            print("Rear limit switch released")
+            eprint("Rear limit switch released")
         else:
-            print("Rear limit switch pressed")
+            eprint("Rear limit switch pressed")
             motorForward()
             times.append(perf_counter_ns())
 
         if GPIO.input(DOOR_SWITCH_PIN):
-            print("Door switch pressed")
+            eprint("Door switch pressed")
         else:
-            print("Door switch released")
+            eprint("Door switch released")
 
 
 def motorForward() -> None:
@@ -63,7 +67,7 @@ if __name__ == "__main__":
     try:
         main(times)
     except BaseException:
-        print("Handing kb interrupt")
+        eprint("Handing kb interrupt")
         raise
     finally:
         motorStop()
