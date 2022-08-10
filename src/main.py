@@ -27,7 +27,7 @@ def eprint(*args, **kwargs) -> None:  # type: ignore
 def main(times: list[int]) -> None:  # pylint: disable=redefined-outer-name
     motorStop()
     startTime: int = perf_counter_ns()
-    totalTime: int = 10 * 1_000_000_000
+    totalTime: int = 10 * 1000000000
     elaspsedTime: int = 0
 
     while True:
@@ -36,14 +36,14 @@ def main(times: list[int]) -> None:  # pylint: disable=redefined-outer-name
             break
 
         if GPIO.input(FRONT_LIMIT_SWITCH_PIN):
-            eprint("Front limit switch released")
+            pass
         else:
             eprint("Front limit switch pressed")
             motorBackward()
             times.append(perf_counter_ns())
 
         if GPIO.input(REAR_LIMIT_SWITCH_PIN):
-            eprint("Rear limit switch released")
+            pass
         else:
             eprint("Rear limit switch pressed")
             motorForward()
