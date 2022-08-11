@@ -26,6 +26,8 @@ def eprint(*args, **kwargs) -> None:  # type: ignore
 
 def main(times: list[int]) -> None:  # pylint: disable=redefined-outer-name
     motorStop()
+    motorForward()
+
     startTime: int = perf_counter_ns()
     totalTime: int = 10 * 1000000000
 
