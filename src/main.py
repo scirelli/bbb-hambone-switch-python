@@ -28,11 +28,9 @@ def main(times: list[int]) -> None:  # pylint: disable=redefined-outer-name
     motorStop()
     startTime: int = perf_counter_ns()
     totalTime: int = 10 * 1000000000
-    elaspsedTime: int = 0
 
     while True:
-        elaspsedTime += perf_counter_ns() - startTime
-        if elaspsedTime >= totalTime:
+        if (perf_counter_ns() - startTime) >= totalTime:
             break
 
         if GPIO.input(FRONT_LIMIT_SWITCH_PIN):
@@ -49,10 +47,10 @@ def main(times: list[int]) -> None:  # pylint: disable=redefined-outer-name
             motorForward()
             times.append(perf_counter_ns())
 
-        if GPIO.input(DOOR_SWITCH_PIN):
-            eprint("Door switch pressed")
-        else:
-            eprint("Door switch released")
+        # if GPIO.input(DOOR_SWITCH_PIN):
+        #     eprint("Door switch pressed")
+        # else:
+        #     eprint("Door switch released")
 
 
 def motorForward() -> None:
