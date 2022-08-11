@@ -29,7 +29,7 @@ def main(times: list[int]) -> None:  # pylint: disable=redefined-outer-name
     motorForward()
 
     startTime: int = perf_counter_ns()
-    totalTime: int = 10 * 1000000000
+    totalTime: int = 60 * 1000000000
     f_pressed: bool = False
     r_pressed: bool = False
 
